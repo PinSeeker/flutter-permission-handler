@@ -36,6 +36,10 @@ public final class PermissionHandlerPlugin implements FlutterPlugin, ActivityAwa
         this.permissionManager = new PermissionManager();
     }
 
+    public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        return this.permissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     /**
      * Registers a plugin implementation that uses the stable {@code io.flutter.plugin.common}
      * package.
