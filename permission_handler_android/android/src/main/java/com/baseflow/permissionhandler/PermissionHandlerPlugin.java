@@ -13,15 +13,13 @@ import io.flutter.plugin.common.MethodChannel;
 /**
  * Platform implementation of the permission_handler Flutter plugin.
  *
- * <p>Instantiate this in an add to app scenario to gracefully handle activity and context changes.
+ * <p>Instantiate this in an add-to-app scenario to gracefully handle activity and context changes.
  * See {@code com.example.permissionhandlerexample.MainActivity} for an example.
- *
- * <p>Call {@link #registerWith(io.flutter.plugin.common.PluginRegistry.Registrar)} to register an
- * implementation of this that uses the stable {@code io.flutter.plugin.common} package.
  */
 public final class PermissionHandlerPlugin implements FlutterPlugin, ActivityAware {
 
-    private final PermissionManager permissionManager;
+    private PermissionManager permissionManager;
+
     private MethodChannel methodChannel;
 
     @SuppressWarnings("deprecation")
@@ -52,6 +50,7 @@ public final class PermissionHandlerPlugin implements FlutterPlugin, ActivityAwa
         final PermissionHandlerPlugin plugin = new PermissionHandlerPlugin();
 
         plugin.pluginRegistrar = registrar;
+        plugin.permissionManager = new PermissionManager(registrar.context());
         plugin.registerListeners();
 
         plugin.startListening(registrar.context(), registrar.messenger());
@@ -65,6 +64,8 @@ public final class PermissionHandlerPlugin implements FlutterPlugin, ActivityAwa
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+        this.permissionManager = new PermissionManager(binding.getApplicationContext());
+
         startListening(
             binding.getApplicationContext(),
             binding.getBinaryMessenger()
@@ -128,14 +129,14 @@ public final class PermissionHandlerPlugin implements FlutterPlugin, ActivityAwa
     private void startListeningToActivity(
         Activity activity
     ) {
-        if (methodCallHandler != null) {
-            methodCallHandler.setActivity(activity);
+        if (permissionManager != null) {
+            permissionManager.setActivity(activity);
         }
     }
 
     private void stopListeningToActivity() {
-        if (methodCallHandler != null) {
-            methodCallHandler.setActivity(null);
+        if (permissionManager != null) {
+            permissionManager.setActivity(null);
         }
     }
 

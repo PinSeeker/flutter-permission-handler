@@ -1,3 +1,22 @@
+## 9.2.0
+* Adds the support for `Permission.calendarWriteOnly` and `Permission.calendarFullAccess` permissions which are introduced in iOS 17+.
+
+## 9.1.4
+
+* Adds checking whether Bluetooth service is enabled through `Permission.bluetooth.serviceStatus`.
+
+## 9.1.3
+
+* Fixes an issue where the `Permission.location.request()`, `Permission.locationWhenInUse.request()` and `Permission.locationAlways.request()` calls returned `PermissionStatus.denied` regardless of the actual permission status.
+
+## 9.1.2
+
+* Fixes an issue where the `Permission.locationAlways.request()` call hangs when the application was granted "Allow once" permissions for fetching location coordinates.
+
+## 9.1.1
+
+* Adds the new Android 13 permission "BODY_SENSORS_BACKGROUND" to PermissionHandlerEnums.h.
+
 ## 9.1.0
 
 * Adds the "Provisional" permission status which is introduced in iOS 12+.
@@ -20,11 +39,11 @@
 
 ## 9.0.4
 
-* Adds flag inside `UserDefaults` to save whether locationAlways has already been requested and prevent further requests, which would be left unanswered by the system.
+* Adds flag inside `UserDefaults` to save whether `locationAlways` has already been requested and prevent further requests, which would be left unanswered by the system.
 
 ## 9.0.3
 
-* Ensures a request for `locationAlways` permission returns a result unblocking the permission request and preventing the `ERROR_ALREADY_REQUESTING_PERMISSIONS` error for subsequent permission request.
+* Ensures a request for `locationAlways` permission returns a result unblocking the permission request and preventing the `ERROR_ALREADY_REQUESTING_PERMISSIONS` error for subsequent permission requests.
 
 ## 9.0.2
 
